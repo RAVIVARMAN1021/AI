@@ -1,0 +1,13 @@
+USE sanjay;
+CREATE TABLE persons3(ID int,LastName varchar(225)NOT NULL,FirstName varchar(255),age int,primary key (ID));
+create table Orders3(orderID int NOT NULL, OrderNumber int NOT NULL,id int,PRIMARY KEY(OrderID),FOREIGN KEY(id) REFERENCES Persons(ID));
+INSERT INTO Persons3 (ID, LastName, FirstName, Age) VALUES
+(1, 'Smith', 'John', 30),
+(2, 'Doe', 'Jane', 25),
+(3, 'Brown', 'Charlie', 40);
+INSERT INTO Orders3 (OrderID, OrderNumber, ID) VALUES
+(101, 5551, 1),
+(102, 5552, 2),
+(103, 5553, 1);
+SHOW tables;
+select* FROM PERSONS3;
