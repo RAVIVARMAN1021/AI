@@ -1,0 +1,42 @@
+create table dept(dno int(10),dname varchar(10),loc varchar(10));
+insert into dept
+values(10,'inventory','hyd'),(20,'finance','bglr'),(30,'HR','mumbai');
+select * from dept;
+create table emp2(eno int(10),ename varchar(10),job varchar(10),Mgr
+int(10),dno int(10));
+insert into emp2 values(111,'saketh','analyst',444,10);
+insert into emp2 values(222,'sandeep','clerk',333,20);
+insert into emp2 values(333,'jagan','manager',111,10);
+insert into emp2 values(444,'madhu','engineer',222,40);
+select * from emp2;
+
+select eno,ename,job,dname,loc from emp2 e,dept d where e.dno=d.dno;
+select eno,ename,job,dname,loc from emp2 e join dept d using(dno);
+select eno,ename,job,dname,loc from emp2 e join dept d on(e.dno=d.dno);
+ select eno,ename,job,dname,loc from emp2 e,dept d where e.dno>d.dno;
+create table sstud1 ( sname varchar(20) , place varchar(20));
+insert into sstud1 values ( 'prajan','chennai'),( 'anand','chennai'),(
+'kumar','chennai'),( 'ravi','chennai');
+select * from sstud1;
+create table sstud2 ( sname varchar(20), dept varchar(10), marks int(10));
+insert into sstud2 values
+('prajan','cse',700),('anand','it',650),('vasu','cse',680),('ravi','it',600);
+select * from sstud2;
+select sname from sstud1 where sstud1.sname in ( select sstud2.sname from
+sstud2 );
+select sname from sstud1 where sstud1.sname not in ( select sstud2.sname from
+sstud2 );
+select sname from sstud2 where marks > some(select marks from sstud2 where
+dept='cse');
+select sname from sstud2 where marks >= some (select marks from sstud2
+where dept='cse' );
+select sname from sstud2 where marks > all ( select marks from sstud2 where
+dept='cse' );
+select sname from sstud2 where marks < all ( select marks from sstud2 where
+dept='cse' );
+select sname from sstud1 where exists ( select sstud2.sname from sstud2 where
+sstud1.sname=sstud2.sname );
+mysql> select sname from sstud1 where not exists ( select sstud2.sname from sstud2
+where sstud1.sname=sstud2.sname );
+
+
