@@ -1,1 +1,43 @@
-def dfs(image, x, y, oldColor, newColor):# Check boundary conditions and color match if (x < 0 or x >= len(image) ory < 0 or y >= len(image[0]) or image[x][y] != oldColor):return# Change the color image[x][y] = newColor# Visit all adjacent pixelsdfs(image, x + 1, y, oldColor, newColor) dfs(image, x - 1, y, oldColor, newColor) dfs(image, x, y + 1, oldColor, newColor) dfs(image, x, y - 1, oldColor, newColor)def floodFill(image, sr, sc, newColor):# If the starting pixel already has the new color if image[sr][sc] == newColor:return image# Call DFS with the starting pixel's original color dfs(image, sr, sc, image[sr][sc], newColor)return imageif name == " main ":14# Input initialization image = [[1, 1, 1, 0],[0, 1, 1, 1],[1, 0, 1, 1]]print("Original Image:") for row in image:print(" ".join(map(str, row)))sr, sc, newColor = 1,
+def dfs(image, x, y, oldColor, newColor):
+    # Check boundary conditions and color match
+    if (x < 0 or x >= len(image) or
+        y < 0 or y >= len(image[0]) or
+        image[x][y] != oldColor):
+        return
+    
+    # Change the color
+    image[x][y] = newColor
+
+    # Visit all adjacent pixels
+    dfs(image, x + 1, y, oldColor, newColor)
+    dfs(image, x - 1, y, oldColor, newColor)
+    dfs(image, x, y + 1, oldColor, newColor)
+    dfs(image, x, y - 1, oldColor, newColor)
+
+def floodFill(image, sr, sc, newColor):
+    # If the starting pixel already has the new color
+    if image[sr][sc] == newColor:
+        return image
+
+    # Call DFS with the starting pixel's original color
+    dfs(image, sr, sc, image[sr][sc], newColor)
+    return image
+
+if __name__ == "__main__":
+    # Input initialization
+    image = [
+        [1, 1, 1, 0],
+        [0, 1, 1, 1],
+        [1, 0, 1, 1]
+    ]
+    sr, sc, newColor = 1, 1, 2  # Starting point and new color
+
+    print("Original Image:")
+    for row in image:
+        print(" ".join(map(str, row)))
+
+    result = floodFill(image, sr, sc, newColor)
+
+    print("\nImage After Flood Fill:")
+    for row in result:
+        print(" ".join(map(str, row)))
