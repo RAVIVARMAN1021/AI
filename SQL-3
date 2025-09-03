@@ -1,5 +1,5 @@
--- 1. Create table
-CREATE TABLE employee (
+
+CREATE TABLE employee112(
     empno INT,
     ename VARCHAR(20),
     job VARCHAR(20),
@@ -7,64 +7,25 @@ CREATE TABLE employee (
     salary INT
 );
 
--- Insert sample values
-INSERT INTO employee VALUES
+INSERT INTO employee112 VALUES
 (101, 'anitha', 's/w deve', 1, 15000),
 (102, 'kumar', 'clerk', 2, 10000),
 (103, 'riwat', 'db admin', 2, 24000),
 (104, 'anuj', 'manager', 1, 40000),
-(105, 'vijay', 'TL', 3, 25000);
+(105, 'vijay', 'TL', 3, 250000);
 
-------------------------------------------------------
--- 2. Display all records where employee name starts with 'a'
-SELECT * FROM employee WHERE ename LIKE 'a%';
+SELECT * FROM employee112;
 
--- 3. Display all records where employee name does not start with 'a'
-SELECT * FROM employee WHERE ename NOT LIKE 'a%';
+SELECT * FROM employee112 WHERE ename NOT LIKE 'a%';
 
--- 4. Display rows where salary ranges from 15000 to 30000
-SELECT * FROM employee WHERE salary BETWEEN 15000 AND 30000;
+SELECT * FROM employee112 WHERE salary BETWEEN 15000 AND 30000;
 
--- 5. Calculate total and average salary
 SELECT SUM(salary) AS total_salary, AVG(salary) AS average_salary
-FROM employee;
+FROM employee112;
 
--- 6. Determine maximum and minimum salary
 SELECT MAX(salary) AS maximum_salary, MIN(salary) AS minimum_salary
-FROM employee;
+FROM employee112;
 
--- 7. Count total records in employee table
-SELECT COUNT(*) AS total_records FROM employee;
+SELECT COUNT(*) AS total_records FROM employee112;
 
-------------------------------------------------------
--- ORDER BY examples
--- Sort employees by salary ascending
-SELECT * FROM employee ORDER BY salary ASC;
 
--- Sort employees by salary descending
-SELECT * FROM employee ORDER BY salary DESC;
-
-------------------------------------------------------
--- UPDATE example
--- Increase salary by 2000 for employee with empno=102
-UPDATE employee SET salary = salary + 2000 WHERE empno = 102;
-
-------------------------------------------------------
--- DELETE example
--- Delete record of employee with empno=105
-DELETE FROM employee WHERE empno = 105;
-
-------------------------------------------------------
--- Aggregate functions with WHERE
--- Find average salary of employees in deptno=2
-SELECT AVG(salary) AS avg_salary_dept2
-FROM employee
-WHERE deptno = 2;
-
-------------------------------------------------------
--- HAVING example
--- Find departments having average salary greater than 20000
-SELECT deptno, AVG(salary) AS avg_salary
-FROM employee
-GROUP BY deptno
-HAVING AVG(salary) > 20000;
