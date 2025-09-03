@@ -1,0 +1,108 @@
+-- Create dept table
+CREATE TABLE dept (
+    dno INT,
+    dname VARCHAR(20),
+    loc VARCHAR(20)
+);
+
+-- Insert values into dept
+INSERT INTO dept VALUES
+(10, 'inventory', 'hyd'),
+(20, 'finance', 'bglr'),
+(30, 'HR', 'mumbai');
+
+-- View dept table
+SELECT * FROM dept;
+
+------------------------------------------------------
+-- Create emp2 table
+CREATE TABLE emp2 (
+    eno INT,
+    ename VARCHAR(20),
+    job VARCHAR(20),
+    Mgr INT,
+    dno INT
+);
+
+-- Insert values into emp2
+INSERT INTO emp2 VALUES
+(111, 'saketh', 'analyst', 444, 10),
+(222, 'sandeep', 'clerk', 333, 20),
+(333, 'jagan', 'manager', 111, 10),
+(444, 'madhu', 'engineer', 222, 40);
+
+-- View emp2 table
+SELECT * FROM emp2;
+
+------------------------------------------------------
+-- Simple Join (employees with dept info)
+SELECT eno, ename, job, dname, loc
+FROM emp2 e, dept d
+WHERE e.dno = d.dno;
+
+------------------------------------------------------
+-- Nested Queries (subqueries with IN and NOT IN)
+
+-- 1. Get student names from sstud1 present in sstud2
+SELECT sname
+FROM sstud1
+WHERE sstud1.sname IN (SELECT sstud2.sname FROM sstud2);
+
+-- 2. Get student names from sstud1 NOT present in sstud2
+SELECT sname
+FROM sstud1
+WHERE sstud1.sname NOT IN (SELECT sstud2.sname FROM sstud2);
+
+------------------------------------------------------
+-- Using SOME / ANY / ALL operators
+
+-- 3. Students with marks > SOME CSE student marks
+SELECT sname
+FROM sstud2
+WHERE marks > SOME (SELECT marks FROM sstud2 WHERE dept='cse');
+
+-- 4. Students with marks >= SOME CSE student marks
+SELECT sname
+FROM sstud2
+WHERE marks >= SOME (SELECT marks FROM sstud2 WHERE dept='cse');
+
+-- 5. Students with marks > ANY CSE student marks
+SELECT sname
+FROM sstud2
+WHERE marks > ANY (SELECT marks FROM sstud2 WHERE dept='cse');
+
+-- 6. Students with marks >= ANY CSE student marks
+SELECT sname
+FROM sstud2
+WHERE marks >= ANY (SELECT marks FROM sstud2 WHERE dept='cse');
+
+-- 7. Students with marks > ALL CSE student marks
+SELECT sname
+FROM sstud2
+WHERE marks > ALL (SELECT marks FROM sstud2 WHERE dept='cse');
+
+-- 8. Students with marks < ALL CSE student marks
+SELECT sname
+FROM sstud2
+WHERE marks < ALL (SELECT marks FROM sstud2 WHERE dept='cse');
+
+------------------------------------------------------
+-- EXISTS / NOT EXISTS queries
+
+-- 9. Students from sstud1 who exist in sstud2
+SELECT sname
+FROM sstud1
+WHERE EXISTS (
+    SELECT sstud2.sname
+    FROM sstud2
+    WHERE sstud1.sname = sstud2.sname
+);
+
+-- 10. Students from sstud1 who do not exist in sstud2
+SELECT sname
+FROM sstud1
+WHERE NOT EXISTS (
+    SELECT sstud2.sname
+    FROM sstud2
+    WHERE sstud1.sname = sstud2.sname
+);
