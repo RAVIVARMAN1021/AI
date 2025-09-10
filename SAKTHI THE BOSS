@@ -1,0 +1,18 @@
+create database sakthikk;
+use sakthikk;
+create table dept(dno int(10),dname varchar(10),loc varchar(10));
+insert into dept values(10,'inventory','hyd'),(20,'finance','bglr'),(30,'HR','mumbai');
+select*from dept;
+create table emp2(eno int(10),ename varchar(10),job varchar(10),dept varchar(10),Mgr int(10),dno int(10));
+insert into emp2 values(111,'saketh','analyst','cse',333,10);
+insert into emp2 values(222,'sandeep','clerk','aiml',444,20);
+insert into emp2 values(333,'jagan','manager','aids',111,10);
+insert into emp2 values(444,'madhu','engineer','ece',222,20);
+select*from emp2;
+create table sstud2(sname varchar(20),dept varchar(10),marks int(10));
+insert into sstud2 values('prajan','cse',700),('anand','it',650),('vasu','cse',680),('ravi','it',600);
+select*from sstud2;
+select sname from sstud2 where marks<all(select marks from sstud2 where dept='cse');
+select eno,ename,job,dname,job,dname,loc from emp2 cross join dept;
+select eno,ename,job,dname,loc from emp2 natural join dept;
+select eno,enmae,job,dname,loc from emp2 e left outer join dept d on(e.dno=d.dno);
