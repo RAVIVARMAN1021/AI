@@ -1,0 +1,44 @@
+-- 1. Create a database
+CREATE DATABASE SchoolDB;
+
+-- 2. Switch to the database
+USE SchoolDB;
+
+-- 3. Create a table for Students
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Age INT,
+    Grade VARCHAR(10)
+);
+
+-- 4. Insert some data
+INSERT INTO Students (FirstName, LastName, Age, Grade)
+VALUES
+('Ravi', 'Kumar', 18, 'A'),
+('Meena', 'Sharma', 19, 'B'),
+('Arjun', 'Singh', 17, 'A'),
+('Priya', 'Patel', 20, 'C');
+
+-- 5. Select all students
+SELECT * FROM Students;
+
+-- 6. Find students with Grade A
+SELECT FirstName, LastName
+FROM Students
+WHERE Grade = 'A';
+
+-- 7. Update a student’s grade
+UPDATE Students
+SET Grade = 'B'
+WHERE StudentID = 3;
+
+-- 8. Delete a student record
+DELETE FROM Students
+WHERE StudentID = 4;
+
+-- 9. Count students by grade
+SELECT Grade, COUNT(*) AS TotalStudents
+FROM Students
+GROUP BY Grade;
