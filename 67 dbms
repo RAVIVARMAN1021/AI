@@ -1,60 +1,21 @@
- USE sample1;
-
-DROP FUNCTION IF EXISTS funcon;
-
-DELIMITER $$
-
-USE sample1 $$
-
-CREATE DEFINER=`root`@`localhost` FUNCTION funcon(s CHAR(20)) 
-RETURNS CHAR(50)
-CHARSET utf8mb4
-DETERMINISTIC
-BEGIN
-    RETURN CONCAT('Hello, ', s, '!!');
-    RETURN 1;
-END$$
-
-DELIMITER ;
-
--- Executing function
-SELECT funcon('world');
--- Output: 'Hello, world!!'
-
-
-
-USE db1;
-
--- Create table
-CREATE TABLE studentnew (
-    rollno INT,
-    name VARCHAR(10),
-    marks INT,
-    status VARCHAR(10)
-);
-
--- Insert values
-INSERT INTO studentnew 
-VALUES
-(1, 'ram', 60, 'pass'),
-(2, 'seetha', 50, 'pass'),
-(3, 'diya', 40, 'null'),
-(4, 'john', 20, 'null');
-
--- View table
-SELECT * FROM studentnew;
-
--- Create stored procedure
+create database san;
+use san;
+create table studentnew(rollno int,name varchar(10),marks int,Status varchar(10));
+insert into studentnew values(1,"ram",60,"pass"),(2,"sitha",50,"pass"),(3,"diya",40,"null"),(3,"john",30,"null");
+select*from studentnew;
 DELIMITER @@
-CREATE PROCEDURE updatestatus1(IN mark1 INT)
-BEGIN
-    DECLARE mymark INT;
-    SET mymark = mark1;
+create procedure updatestatus1(in mark1 int)
+begin
+declare mymark int;
+set mymark=mark1;
+if mymark>35 then
+update studentnew set status="pass" where marks =mymark;
+else
+update studentnew set status="fail" where marks=mymark;
+end if;
+end;
+@@
+call updatestatus1(40);
+@@
+select*from studentnew;
 
-    IF mymark > 35 THEN
-        UPDATE studentnew SET status = 'pass' WHERE marks = mymark;
-    ELSE
-        UPDATE studentnew SET status = 'fails' WHERE marks = mymark;
-    END IF;
-END@@
-DELIMITER ;
